@@ -1,12 +1,14 @@
 const express = require('express');
 const mongoose = require('mongoose');
-require('dotenv').config();
+const authRoutes = require('./routes/authRoutes');
 
+require('dotenv').config();
 
 const app = express();
 
 // middleware
 app.use(express.static('public'));
+app.use(express.json());
 
 // view engine
 app.set('view engine', 'ejs');
@@ -24,3 +26,4 @@ mongoose.connect(dbURI, {
 // routes
 app.get('/', (req, res) => res.render('home'));
 app.get('/smoothies', (req, res) => res.render('smoothies'));
+app.use(authRoutes);
